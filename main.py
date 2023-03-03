@@ -1,16 +1,16 @@
-# This is a sample Python script.
+import numpy as num
+import matplotlib.pyplot as mpl
+import pandas as pd
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+data = pd.read_csv('data.csv')
+x = data.iloc[:, :-1].values
+y = data.iloc[:, -1].values
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(missing_values=num.nan, strategy='mean')
+imputer = imputer.fit(x[:, 1:3])
+x[:, 1:3] = imputer.transform(x[:, 1:3])
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(x)
+
